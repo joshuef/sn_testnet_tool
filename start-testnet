@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO make section size configurable here.
 
 source ./droplet-operations
 source ./section-operations

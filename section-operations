@@ -68,6 +68,14 @@ function deploy_adults {
     done
 }
 
+
+# TODO: make churn more rapid + configurable...
+# TODO: How do we test churn
+#  TODO make this churn depend on section size
+#  TODO: poros/cons of chaos in app vs this...?
+#  Could this just be random starts?
+
+# How to confirm we're getting nodes joining/leaving
 function churn {
     adult_nodes=()
     for ip in $(<adults-ip-list xargs -r); do

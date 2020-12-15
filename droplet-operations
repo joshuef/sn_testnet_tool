@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+# TODO: Make network size configurable....
+
 function create_elder_droplets {
         for i in {1..5}; do
         ./doctl compute droplet create safe-testnet-elder-${i} \
