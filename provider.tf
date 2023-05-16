@@ -37,8 +37,7 @@ variable "ssh_keys" {
   type    = list(number)
   default = [
     37243057, # Benno Zeeman
-    36983288, # David Rusu
-    36971807, # Roland Sherwin
+    38313409, # Roland Sherwin
     36971688, # Dirvine
     19315097, # Stephen Coyle
     29201567, # Josh Wilson
