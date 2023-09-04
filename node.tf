@@ -163,6 +163,12 @@ resource "digitalocean_droplet" "node_cluster" {
     source      = "./workspace/${terraform.workspace}/safenode"
     destination = "safenode"
   }
+
+  provisioner "file" {
+    source      = "./workspace/${terraform.workspace}/safe"
+    destination = "safe"
+  }
+
   provisioner "file" {
     source       = "scripts/init-node.sh"
     destination  = "/tmp/init-node.sh"
@@ -179,6 +185,14 @@ resource "digitalocean_droplet" "node_cluster" {
     destination  = "/contact-node-peer-id"
   }
 
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x ./safe",
+      "cp ./safe /usr/local/bin/safe",
+    ]
+  }
+  
 
   provisioner "local-exec" {
     command = <<EOH

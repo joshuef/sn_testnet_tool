@@ -105,7 +105,7 @@ function run_terraform_apply() {
     -var "number_of_droplets=${DROPLET_COUNT}" \
     -var "number_of_nodes_per_machine=${NODES_PER_MACHINE}" \
     # -var "node_url=${node_url}" \
-    -var "otlp_collector_endpoint=${OTLP_COLLECTOR_ENDPOINT}" \
+    # -var "otlp_collector_endpoint=${OTLP_COLLECTOR_ENDPOINT}" \
     --parallelism 15 ${AUTO_APPROVE}
 }
 
