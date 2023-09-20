@@ -24,15 +24,19 @@ perform_ripgrep_and_sync() {
     return
   fi
 
-  echo "Performing ripgrep for '$search_string' on $name ($ip)"
+  # echo "Performing ripgrep for '$search_string' on $name ($ip)"
   ssh "root@$ip" "rg -lu '$search_string' ~/.local/share/safe/node/*" > /tmp/matching_files_${name}_${ip}.txt 
 
   if [[ -s /tmp/matching_files_${name}_${ip}.txt ]]; then
     echo "Syncing matching files from $name ($ip)"
     # cat /tmp/matching_files_${name}_${ip}.txt
+
+    # clear all prio rg logs
+    rm -rf "workspace/${TESTNET_CHANNEL}/droplets/${name}__${ip}/rg-logs"
+
     mkdir -p "workspace/${TESTNET_CHANNEL}/droplets/${name}__${ip}/rg-logs"
     rsync -arz --files-from=/tmp/matching_files_${name}_${ip}.txt --no-relative root@${ip}:/ "workspace/${TESTNET_CHANNEL}/droplets/${name}__${ip}/rg-logs"
-    cat /tmp/matching_files_${name}_${ip}.txt
+    # cat /tmp/matching_files_${name}_${ip}.txt
     rm /tmp/matching_files_${name}_${ip}.txt
     echo "files synced to workspace/${TESTNET_CHANNEL}/droplets/${name}__${ip}/rg-logs"
   fi

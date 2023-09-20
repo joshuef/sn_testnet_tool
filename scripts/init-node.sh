@@ -99,7 +99,7 @@ function install_node() {
 
 
 function run_node() {
-  export SN_LOG=sn_node=debug,safenode=debug,sn_logging=debug,sn_networking=trace
+  export SN_LOG=v
   # export SN_LOG=all
   export RUST_LOG_OTLP=safenode=debug
   # export OTLP_SERVICE_NAME="${node_name}"

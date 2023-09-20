@@ -1,6 +1,6 @@
 resource "digitalocean_droplet" "node_builder" {
     count = var.builder_count
-    image = "135559022" #safenode-builder, id from `doctl compute snapshot list`
+    image = "140808087" #safenode-builder, id from `doctl compute snapshot list`
     name = "${terraform.workspace}-safenode-builder"
     region = "lon1"
     size = var.build-size
@@ -28,7 +28,7 @@ resource "digitalocean_droplet" "node_builder" {
     provisioner "remote-exec" {
         inline = [
             "cd safe_network",
-            "git remote add ${var.repo_owner} https://github.com/${var.repo_owner}/safe_network",
+            "git remote add ${var.repo_owner} https://github.com/${var.repo_owner}/safe_network || true",
         ]
     }
     # lets checkout the given commit first so we can fail fast if there's an issue
@@ -88,7 +88,9 @@ resource "digitalocean_droplet" "node_builder" {
             # "rustup target add x86_64-unknown-linux-musl",
             # "cargo -q build --release --target=x86_64-unknown-linux",
             # "RUSTFLAGS=\"-C debuginfo=2\" cargo build --release --bins",
-            "cargo build --release --bins",
+            "cargo build --release --bin safenode",
+            "cargo build --release --bin safe",
+            "cargo build --release --bin faucet",
             "git log -1"
         ]
     }

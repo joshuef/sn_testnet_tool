@@ -209,7 +209,7 @@ resource "digitalocean_droplet" "node_cluster" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/init-node.sh",
-      "/tmp/init-node.sh \"${var.port}\" \"${terraform.workspace}-safe-node-${count.index + 2}\" ${self.ipv4_address} \"/ip4/$(cat /contact-node-peer-id)\" ${var.number_of_nodes_per_machine}",
+      "SAFE_NO_CHAOS=true /tmp/init-node.sh \"${var.port}\" \"${terraform.workspace}-safe-node-${count.index + 2}\" ${self.ipv4_address} \"/ip4/$(cat /contact-node-peer-id)\" ${var.number_of_nodes_per_machine}",
     ]
   }
 
